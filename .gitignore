@@ -1,0 +1,16 @@
+# ExtJS
+bootstrap.json
+.sencha/
+build/
+ext/
+modern/
+sass/
+Readme.md
+classic.json
+modern.json
+
+# IntelliJ
+.idea/
+
+# Images
+fisheye-placebo.jpg
