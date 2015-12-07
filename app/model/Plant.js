@@ -1,18 +1,42 @@
 Ext.define('Skrubba.model.Plant', {
     extend: 'Skrubba.model.Base',
 
+    editorActive: false,
+
+    //idProperty: 'id',
+
     fields: [
         { name: 'id', type: 'int' },
-        { name: 'name', type: 'auto' },
-        { name: 'onTime', type: 'auto' },
-        { name: 'onDuration', type: 'auto' },
+        { name: 'valve', type: 'int' },
+        { name: 'name', type: 'string' },
+        { name: 'onTime', type: 'auto',
+            convert: function(value, record) {
+                if(value instanceof Date) {
+                    var formattedValue = Ext.Date.format(value, 'H:i');
+                } else {
+                    var valueDate = Ext.Date.parse(value, 'H:i');
+                    var formattedValue = Ext.Date.format(valueDate, 'H:i');
+                }
+                return formattedValue;
+            }
+        },
+        { name: 'onDuration', type: 'int' },
         { name: 'intervalType', type: 'auto' },
-        { name: 'isActive', type: 'auto' }
+        { name: 'isActive', type: 'boolean' }
     ]
 
-    /*schema: {
-        proxy: {
-            url: 'data/plant'
-        }
+    /*set: function (name, value) {
+        this.callParent(arguments); // original set functions
+        //if(name !== 'editorActive') {
+            //console.log(this.store.save());
+            console.log('save');
+            //this.store.commitChanges()
+        //}
     }*/
+
+        /*schema: {
+            proxy: {
+                url: 'data/plant'
+            }
+        }*/
 });

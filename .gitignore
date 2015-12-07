@@ -5,12 +5,21 @@ build/
 ext/
 modern/
 sass/
+!classic/sass/
+!modern/sass/
+classic/sass/src/**/*.scss
+modern/sass/src/**/*.scss
 Readme.md
 classic.json
 modern.json
 
 # IntelliJ
 .idea/
+
+# scss
+*.css.map
+classic/sass/**/*.css
+modern/sass/**/*.css
 
 # Images
 fisheye-placebo.jpg

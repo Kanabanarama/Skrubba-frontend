@@ -5,7 +5,17 @@ Ext.define('Skrubba.store.Plants', {
 
     model: 'Skrubba.model.Plant',
 
-    autoLoad : true
+    autoLoad: true
+    //autoSync: true
+
+    //url: 'http://localhost:2525/data/{entityName:lowercase}.json'
+    //storeId: 'myStore',
+    // reader configs
+    //root: 'images',
+    //idProperty: 'name',
+    //fields: ['name', 'url', {name:'size', type: 'float'}, {name:'lastmod', type:'date'}]
+
+    //editorActiveOnIndex: -1
 
     /*fields: [
         'id', 'name', 'onTime', 'onDuration', 'intervalType', 'isActive'
@@ -30,3 +40,10 @@ Ext.define('Skrubba.store.Plants', {
         }
     }*/
 });
+
+/*Ext.define('Skrubba.store.Plants', {
+    extend: 'Ext.data.Store',
+    alias: 'store.plants',
+    model: 'Skrubba.model.Plant',
+    autoLoad : true
+});*/

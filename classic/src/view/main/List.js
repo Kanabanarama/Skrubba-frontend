@@ -4,6 +4,8 @@
 Ext.define('Skrubba.view.main.List', {
     extend: 'Ext.grid.Panel',
     xtype: 'mainlist',
+    //alias: 'mainlist',
+    //id: 'mainlist',
 
     requires: [
         'Skrubba.store.Plants'
@@ -15,31 +17,90 @@ Ext.define('Skrubba.view.main.List', {
         type: 'plants'
     },
 
+    //editingActiveCell: -1,
+
+    viewConfig: {
+        //stripeRows: true,
+        getRowClass: function(record, rowIndex, rowParams, store) {
+            return record.editorActive ? 'x-grid-item-editable' : '';
+        }/*,
+        listeners: {
+            beforecellmousedown: function(view, cell, cellIdx, record, row, rowIdx, eOpts) {
+                console.log(cellIdx);
+                if(cellIdx === 0){
+                    return false;
+                }
+            }
+        }*/
+    },
+
+    frame: false,
+
+    //disableSelection: true,
+    //selType: 'rowmodel',
+
     columns: [
         {
-            text: 'ID',
-            dataIndex: 'id',
+            text: 'Valve',
+            dataIndex: 'valve',
             width: 60
         },
         {
             text: 'Name',
             dataIndex: 'name',
-            flex: 1
+            flex: 1,
+            editor: {
+                xtype:'textfield'
+            }
         },
         {
             text: 'On Time',
             dataIndex: 'onTime',
-            flex: 1
+            flex: 1,
+            //xtype: 'timefield'
+            //format: 'H:i',
+            //submitFormat: 'Y-m-d H:i:s',
+            editor: {
+                xtype: "timefield",
+                format: "H:i",
+                altFormats: 'H:i',
+                submitFormat: 'H:i'
+            }
+            /*renderer : function(value, metaData, record, rowIndex, colIndex, store, view) {
+                timeFieldDate = new Date(value);
+                //timeFieldDisplayValue = timeFieldDate.format('H:i');
+                console.log(value);
+                return value;
+            }*/
         },
         {
             text: 'On Duration',
             dataIndex: 'onDuration',
-            flex: 1
+            flex: 1,
+            editor: {
+                xtype:'textfield'
+            }
         },
         {
             text: 'Interval Type',
             dataIndex: 'intervalType',
-            flex: 1
+            flex: 1,
+            editor: {
+                xtype:'combo',
+                store: new Ext.data.ArrayStore({
+                    fields: ['value', 'text'],
+                    data : [
+                        ['daily', 'daily'],
+                        ['weekly', 'weekly'],
+                        ['monthly', 'monthly']
+                    ]
+                }),
+                displayField:'text',
+                valueField: 'value',
+                mode: 'local',
+                typeAhead: false,
+                emptyText: 'Select interval'
+            }
         },
         {
             text: 'Measurement History',
@@ -78,7 +139,7 @@ Ext.define('Skrubba.view.main.List', {
                 {
                     iconCls: 'fa fa-pencil',
                     tooltip: 'Edit plant',
-                    handler: 'onClickPlantShow'
+                    handler: 'onClickPlantEdit'
                 },
                 {
                     iconCls: 'fa fa-flask',
@@ -88,13 +149,26 @@ Ext.define('Skrubba.view.main.List', {
                 {
                     iconCls: 'fa fa-trash',
                     tooltip: 'Delete plant',
-                    handler: function(grid, rowIndex, colIndex) {
+                    handler: 'onClickPlantDelete'
+                    /*handler: function(grid, rowIndex, colIndex) {
                         var rec = grid.getStore().getAt(rowIndex);
                         alert("Delete " + rec.get('name') + "?");
-                    }
+                    }*/
                 }
             ]
         }
+    ],
+
+    plugins: [
+        //Ext.create('Ext.grid.plugin.RowEditing', {
+        Ext.create('Ext.grid.plugin.CellEditing', {
+            clicksToEdit: 1,
+            listeners: {
+                'beforeedit': function(editor, context, eOpts) {
+                    return (context.record.editorActive === true);
+                }
+            }
+        })
     ],
 
     bbar: {
@@ -106,6 +180,7 @@ Ext.define('Skrubba.view.main.List', {
 
     buttons: [{
         text: 'Add New Plant',
+        //scope: 'plantlist',
         handler: 'onAddNewPlantClick'
     }],
 

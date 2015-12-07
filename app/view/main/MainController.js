@@ -19,6 +19,15 @@ Ext.define('Skrubba.view.main.MainController', {
         }
     },
 
+    onClickPlantEdit: function(view, rowIndex, colIndex, metadata, event, record, rowEl) {
+        record.store.each(function(record, idx) {
+            record.editorActive = false;
+        });
+        record.editorActive = true;
+        //view.refreshNode(record);
+        view.refresh();
+    },
+
     onClickWaterManually: function(view, rowIndex, colIndex, metadata, event, record, rowEl) {
         Ext.Ajax.request({
             url: 'http://localhost:2525/actions/manualwatering',
@@ -29,7 +38,7 @@ Ext.define('Skrubba.view.main.MainController', {
                 //duration: 5
             },*/
             jsonData: Ext.JSON.encode({
-                id: record.id,
+                valve: record.get('valve'),
                 duration: 5
             }),
             success: function(xhr) { console.log('success: '+xhr.responseText); },
@@ -37,7 +46,27 @@ Ext.define('Skrubba.view.main.MainController', {
         });
     },
 
-    onAddNewPlantClick: function(params) {
-        console.log(params);
+    onClickPlantDelete: function(grid, rowIndex, colIndex, metadata, event, record, rowEl) {
+        Ext.Msg.confirm('Delete plant', 'Are you sure you want to delete '+record.get('name')+'?', function (selection) {
+            if (selection === 'yes') {
+                grid.getStore().remove(record);
+            }
+        }, this);
+    },
+
+    onAddNewPlantClick: function(button, event) {
+        var grid = this.getView().down('mainlist');
+        var store = grid.getStore();
+        var newRecord = new Skrubba.model.Plant({
+            name: 'New plant'
+        });
+        //newRecord.phantom = true;
+        store.add(newRecord);
+        store.sync();
+        //store.commitChanges();
+        //console.log(this, button, event);
+        //console.log(Ext.getCmp('mainlist'));
+        //console.log(Ext.getCmp('plantlist'));
+        //var store = Ext.getCmp('my_grid').store;this.up('mainlist')
     }
 });
