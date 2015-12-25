@@ -21,7 +21,7 @@ Ext.define('Skrubba.model.Plant', {
             }
         },
         { name: 'onDuration', type: 'int' },
-        { name: 'intervalType', type: 'auto' },
+        { name: 'intervalType', type: 'string' },
         { name: 'isActive', type: 'boolean' }
     ]
 

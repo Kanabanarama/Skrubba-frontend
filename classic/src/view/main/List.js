@@ -17,8 +17,6 @@ Ext.define('Skrubba.view.main.List', {
         type: 'plants'
     },
 
-    //editingActiveCell: -1,
-
     viewConfig: {
         //stripeRows: true,
         getRowClass: function(record, rowIndex, rowParams, store) {
@@ -150,10 +148,6 @@ Ext.define('Skrubba.view.main.List', {
                     iconCls: 'fa fa-trash',
                     tooltip: 'Delete plant',
                     handler: 'onClickPlantDelete'
-                    /*handler: function(grid, rowIndex, colIndex) {
-                        var rec = grid.getStore().getAt(rowIndex);
-                        alert("Delete " + rec.get('name') + "?");
-                    }*/
                 }
             ]
         }
@@ -166,6 +160,17 @@ Ext.define('Skrubba.view.main.List', {
             listeners: {
                 'beforeedit': function(editor, context, eOpts) {
                     return (context.record.editorActive === true);
+                },
+                'edit': function(editor, element) {
+                    console.log(this, arguments);
+                    var activeEd = this.getActiveEditor();
+                    if (activeEd) {
+                        activeEd.completeEdit();
+                        //var grid = this.getView().down('mainlist');
+                        var grid = element.grid;
+                        var store = grid.getStore();
+                        store.sync();
+                    }
                 }
             }
         })

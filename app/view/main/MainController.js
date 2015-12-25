@@ -49,7 +49,10 @@ Ext.define('Skrubba.view.main.MainController', {
     onClickPlantDelete: function(grid, rowIndex, colIndex, metadata, event, record, rowEl) {
         Ext.Msg.confirm('Delete plant', 'Are you sure you want to delete '+record.get('name')+'?', function (selection) {
             if (selection === 'yes') {
-                grid.getStore().remove(record);
+                console.log('deleted', record)
+                var store = grid.getStore();
+                store.remove(record);
+                store.sync();
             }
         }, this);
     },
@@ -60,13 +63,10 @@ Ext.define('Skrubba.view.main.MainController', {
         var newRecord = new Skrubba.model.Plant({
             name: 'New plant'
         });
+        //console.log(newRecord);
         //newRecord.phantom = true;
         store.add(newRecord);
-        store.sync();
         //store.commitChanges();
-        //console.log(this, button, event);
-        //console.log(Ext.getCmp('mainlist'));
-        //console.log(Ext.getCmp('plantlist'));
-        //var store = Ext.getCmp('my_grid').store;this.up('mainlist')
+        store.sync();
     }
 });
