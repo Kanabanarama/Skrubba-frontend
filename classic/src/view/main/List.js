@@ -175,7 +175,24 @@ Ext.define('Skrubba.view.main.List', {
                         //var grid = this.getView().down('mainlist');
                         var grid = element.grid;
                         var store = grid.getStore();
-                        store.sync();
+                        store.sync({
+                            failure: function(batch, options) {
+                                //console.log(this, arguments);
+                                //console.log(batch.proxy.getReader());
+                                //console.log(this.getReader().jsonData);
+                                //console.log(this.getReader().rawData);
+                                //console.log(batch.proxy.getReader().rawData);
+                                store.rejectChanges();
+                                Ext.each(batch.exceptions, function(operation) {
+                                    if (operation.hasException()) {
+                                        Ext.MessageBox.alert('Error', operation.error);
+                                    }
+                                });
+                            },
+                            success: function() {
+                                console.log('success', arguments);
+                            }
+                        });
                     }
                 }
             }

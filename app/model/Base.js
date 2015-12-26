@@ -20,7 +20,20 @@ Ext.define('Skrubba.model.Base', {
             },
             reader: {
                 type: 'json',
-                rootProperty: '{entityName:lowercase}'
+                idProperty: 'extId',
+                rootProperty: '{entityName:lowercase}',
+                successProperty: 'success',
+                messageProperty : 'message'/*,
+                listeners: {
+                    exception: function(proxy, response, operation){
+                        Ext.MessageBox.show({
+                            title: 'REMOTE EXCEPTION',
+                            msg: operation.getError(),
+                            icon: Ext.MessageBox.ERROR,
+                            buttons: Ext.Msg.OK
+                        });
+                    }
+                }*/
                 //transform: {
                     //fn: function(data) {
                         // do some manipulation of the raw data object
