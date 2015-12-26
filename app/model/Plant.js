@@ -3,9 +3,11 @@ Ext.define('Skrubba.model.Plant', {
 
     editorActive: false,
 
-    //idProperty: 'id',
+    idProperty: 'extId',
+    //identifier: 'negative',
 
     fields: [
+        { name: 'extId', type: 'int' },
         { name: 'id', type: 'int' },
         { name: 'valve', type: 'int' },
         { name: 'name', type: 'string' },

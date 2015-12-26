@@ -5,7 +5,13 @@ Ext.define('Skrubba.store.Plants', {
 
     model: 'Skrubba.model.Plant',
 
-    autoLoad: true
+    autoLoad: true,
+
+    sorters: [{
+        property: 'valve',
+        direction: 'ASC'
+    }]
+
     //autoSync: true
 
     //url: 'http://localhost:2525/data/{entityName:lowercase}.json'

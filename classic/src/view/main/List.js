@@ -41,7 +41,13 @@ Ext.define('Skrubba.view.main.List', {
         {
             text: 'Valve',
             dataIndex: 'valve',
-            width: 60
+            width: 70,
+            editor: {
+                xtype: 'numberfield',
+                allowBlank: false,
+                minValue: 1,
+                maxValue: 8
+            }
         },
         {
             text: 'Name',
