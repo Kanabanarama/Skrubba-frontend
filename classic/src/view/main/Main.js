@@ -99,9 +99,9 @@ Ext.define('Skrubba.view.main.Main', {
     }, {
         title: 'Logs',
         iconCls: 'fa-clipboard',
-        bind: {
-            html: '{loremIpsum}'
-        }
+        items: [{
+            xtype: 'loglist'
+        }]
     }, {
         title: 'Logout',
         iconCls: 'fa-times',
