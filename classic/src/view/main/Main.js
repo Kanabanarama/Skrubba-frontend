@@ -87,9 +87,9 @@ Ext.define('Skrubba.view.main.Main', {
     }, {
         title: 'Settings',
         iconCls: 'fa-cog',
-        bind: {
-            html: '{loremIpsum}'
-        }
+        items: [{
+            xtype: 'settings'
+        }]
     }, {
         title: 'Statistics',
         iconCls: 'fa-line-chart',
