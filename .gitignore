@@ -7,8 +7,6 @@ modern/
 sass/
 !classic/sass/
 !modern/sass/
-classic/sass/src/**/*.scss
-modern/sass/src/**/*.scss
 Readme.md
 classic.json
 modern.json
