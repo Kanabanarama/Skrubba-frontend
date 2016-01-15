@@ -14,7 +14,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 console.log('Shutting down...');
                 //Ext.get('ajaxpanel').load({ url: 'http://192.168.0.205:2525/shutdown' });
                 Ext.Ajax.request({
-                    url: 'http://localhost:2525/serveroff',
+                    url: Ext.widget('Configuration').getProxyUrl() + '/serveroff',
                     method: 'POST',
                     success: function() {
                         console.log(this, arguments);
@@ -33,7 +33,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
             if (selection === 'yes') {
                 console.log('Rebooting...');
                 Ext.Ajax.request({
-                    url: 'http://localhost:2525/reboot',
+                    url: Ext.widget('Configuration').getProxyUrl() + '/reboot',
                     method: 'POST',
                     success: function() {
                         console.log(this, arguments);
@@ -52,7 +52,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
             if (selection === 'yes') {
                 console.log('Shutting down...');
                 Ext.Ajax.request({
-                    url: 'http://localhost:2525/shutdown',
+                    url: Ext.widget('Configuration').getProxyUrl() + '/shutdown',
                     method: 'POST',
                     success: function() {
                         console.log(this, arguments);
