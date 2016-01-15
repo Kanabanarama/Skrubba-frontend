@@ -210,9 +210,5 @@ Ext.define('Skrubba.view.main.List', {
         text: 'Add New Plant',
         //scope: 'plantlist',
         handler: 'onAddNewPlantClick'
-    }],
-
-    listeners: {
-        select: 'onItemSelected'
-    }
+    }]
 });

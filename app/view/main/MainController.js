@@ -9,16 +9,6 @@ Ext.define('Skrubba.view.main.MainController', {
 
     alias: 'controller.main',
 
-    onItemSelected: function (sender, record) {
-        //Ext.Msg.confirm('Confirm', 'Are you sure?', 'onConfirm', this);
-    },
-
-    onConfirm: function (choice) {
-        if (choice === 'yes') {
-            //
-        }
-    },
-
     onClickPlantEdit: function(view, rowIndex, colIndex, metadata, event, record, rowEl) {
         record.store.each(function(record, idx) {
             record.editorActive = false;
@@ -30,13 +20,9 @@ Ext.define('Skrubba.view.main.MainController', {
 
     onClickWaterManually: function(view, rowIndex, colIndex, metadata, event, record, rowEl) {
         Ext.Ajax.request({
-            url: 'http://localhost:2525/actions/manualwatering',
+            url: Ext.widget('Configuration').getProxyUrl() + '/actions/manualwatering',
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            /*params: {
-                id: record.id
-                //duration: 5
-            },*/
             jsonData: Ext.JSON.encode({
                 valve: record.get('valve'),
                 duration: 5
@@ -63,10 +49,7 @@ Ext.define('Skrubba.view.main.MainController', {
         var newRecord = new Skrubba.model.Plant({
             name: 'New plant'
         });
-        //console.log(newRecord);
-        //newRecord.phantom = true;
         store.add(newRecord);
-        //store.commitChanges();
         store.sync();
     }
 });

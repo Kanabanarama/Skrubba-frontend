@@ -9,7 +9,8 @@ Ext.application({
     extend: 'Skrubba.Application',
 
     requires: [
-        'Skrubba.view.main.Main'
+        'Skrubba.view.main.Main',
+        'Skrubba.util.Configuration'
     ],
 
     // The name of the initial view to create. With the classic toolkit this class
@@ -17,7 +18,7 @@ Ext.application({
     // modern toolkit, the main view will be added to the Viewport.
     //
     mainView: 'Skrubba.view.main.Main'
-	
+
     //-------------------------------------------------------------------------
     // Most customizations should be made to Skrubba.Application. If you need to
     // customize this file, doing so below this section reduces the likelihood

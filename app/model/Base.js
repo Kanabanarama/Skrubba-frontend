@@ -8,20 +8,22 @@ Ext.define('Skrubba.model.Base', {
 
     schema: {
         namespace: 'Skrubba.model',
-
+        urlPrefix: Ext.widget('Configuration').getProxyUrl(),
         proxy: {
             type: 'ajax',
-            url: 'http://localhost:2525/data/{entityName:lowercase}.json',
+
+            url: '{prefix}/{entityName:lowercase}.json',
             api: {
-                create: 'http://localhost:2525/data/{entityName:lowercase}.json?action=create',
-                read: 'http://localhost:2525/data/{entityName:lowercase}.json?action=read',
-                update: 'http://localhost:2525/data/{entityName:lowercase}.json?action=update',
-                destroy: 'http://localhost:2525/data/{entityName:lowercase}.json?action=destroy'
+                create: '{prefix}/data/{entityName:lowercase}.json?action=create',
+                read: '{prefix}/data/{entityName:lowercase}.json?action=read',
+                update: '{prefix}/data/{entityName:lowercase}.json?action=update',
+                destroy: '{prefix}/data/{entityName:lowercase}.json?action=destroy'
             },
             reader: {
                 type: 'json',
                 idProperty: 'extId',
                 rootProperty: '{entityName:lowercase}',
+                totalProperty: 'count',
                 successProperty: 'success',
                 messageProperty : 'message'/*,
                 listeners: {
