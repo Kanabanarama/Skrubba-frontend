@@ -9,13 +9,12 @@ Ext.define('Skrubba.view.main.MainController', {
 
     alias: 'controller.main',
 
-    onClickPlantEdit: function(view, rowIndex, colIndex, metadata, event, record, rowEl) {
+    onItemSelected: function (sender, record) {
         record.store.each(function(record, idx) {
             record.editorActive = false;
         });
         record.editorActive = true;
-        //view.refreshNode(record);
-        view.refresh();
+        sender.view.refresh();
     },
 
     onClickWaterManually: function(view, rowIndex, colIndex, metadata, event, record, rowEl) {

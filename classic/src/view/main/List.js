@@ -17,19 +17,15 @@ Ext.define('Skrubba.view.main.List', {
         type: 'plants'
     },
 
+    listeners: {
+        select: 'onItemSelected'
+    },
+
     viewConfig: {
         //stripeRows: true,
         getRowClass: function(record, rowIndex, rowParams, store) {
             return record.editorActive ? 'x-grid-item-editable' : '';
-        }/*,
-        listeners: {
-            beforecellmousedown: function(view, cell, cellIdx, record, row, rowIdx, eOpts) {
-                console.log(cellIdx);
-                if(cellIdx === 0){
-                    return false;
-                }
-            }
-        }*/
+        }
     },
 
     frame: false,
@@ -136,15 +132,9 @@ Ext.define('Skrubba.view.main.List', {
                 textTpl: '{value:percent}'
             }
         },{
-            header: 'Edit',
             xtype: 'actioncolumn',
-            width: 60,
+            width: 40,
             items: [
-                {
-                    iconCls: 'fa fa-pencil',
-                    tooltip: 'Edit plant',
-                    handler: 'onClickPlantEdit'
-                },
                 {
                     iconCls: 'fa fa-flask',
                     tooltip: 'Water manually',
@@ -165,23 +155,18 @@ Ext.define('Skrubba.view.main.List', {
             clicksToEdit: 1,
             listeners: {
                 'beforeedit': function(editor, context, eOpts) {
-                    return (context.record.editorActive === true);
+                    //console.log(context.node, context.getNode().getEl())
+                    //console.log(context.getRow().el)
+                    //Ext.DomHelper.applyStyles(editor.getEditorBody(), { 'color': 'red' });
                 },
                 'edit': function(editor, element) {
-                    console.log(this, arguments);
                     var activeEd = this.getActiveEditor();
                     if (activeEd) {
                         activeEd.completeEdit();
-                        //var grid = this.getView().down('mainlist');
                         var grid = element.grid;
                         var store = grid.getStore();
                         store.sync({
                             failure: function(batch, options) {
-                                //console.log(this, arguments);
-                                //console.log(batch.proxy.getReader());
-                                //console.log(this.getReader().jsonData);
-                                //console.log(this.getReader().rawData);
-                                //console.log(batch.proxy.getReader().rawData);
                                 store.rejectChanges();
                                 Ext.each(batch.exceptions, function(operation) {
                                     if (operation.hasException()) {
