@@ -2,16 +2,19 @@
  * This view is an example list of people.
  */
 Ext.define('Skrubba.view.main.Settings', {
-    extend: 'Ext.panel.Panel',
-    xtype: 'settings',
+    extend: 'Ext.form.Panel',
+    xtype: 'settingsform',
+
+    /*requires: [
+        'Skrubba.store.Settings'
+    ],*/
+
     controller: 'settings',
 
     title: 'Settings',
 
     frame: true,
-
     layout: 'border',
-
     height: 450,
     bodyPadding: 10,
 
@@ -19,6 +22,47 @@ Ext.define('Skrubba.view.main.Settings', {
         split: true,
         frame: true,
         bodyPadding: 10
+    },
+
+    listeners: {
+        // binding a store to the form panel didn't work for whatever reason..
+        beforeRender: function () {
+            settingsStore = Ext.data.StoreManager.lookup('Settings');
+            settingModel = settingsStore.getAt(0);
+            if(settingModel) {
+                settingData = settingsStore.getAt(0).getData();
+                form = this.getForm();
+                form.loadRecord(settingModel);
+            }
+        }
+    },
+
+    formBind: true,
+
+    /*store: {
+        type: 'settings'
+    },*/
+
+    //store: 'Settings',
+
+    initComponent : function() {
+        /*var AjaxRead =
+            Ext.Ajax.request({
+                url: 'json.html',
+                method: 'GET',
+                success: function (response){
+                    fs.getForm().load(response.responseText);
+                }
+            });*/
+        //console.log(this.getForm());
+        //var store = Ext.data.StoreManager.lookup('settings');
+        //var store = Ext.data.StoreManager.get('settings');
+        //if (!store) {
+        //    store = Ext.create('settings');
+        //}
+        //console.log(this.getStore());
+        //this.store = store;
+        this.callParent(arguments);
     },
 
     items: [{
@@ -29,7 +73,9 @@ Ext.define('Skrubba.view.main.Settings', {
         collapsible: false,
         items: [
         {
-            xtype:'combo',
+            xtype: 'combo',
+            name: 'valveAmount',
+            id: 'valveAmountField',
             store: new Ext.data.ArrayStore({
                 fields: ['value', 'text'],
                 data : [
@@ -39,11 +85,24 @@ Ext.define('Skrubba.view.main.Settings', {
                     [32, '32']
                 ]
             }),
+            listeners: {
+                render: function (field) {
+                    //console.log(this.up('form').getForm().loadRecord());
+                    //console.log(this.ownerCt);
+                    //field.setValue(16);
+                }
+            },
             displayField:'text',
             valueField: 'value',
+            //bind: 'settings',
+            //value: '{settings.valveAmount}',
+            //value: this.myStore.first().get('aFieldName')
             width: '100%',
-            mode: 'local',
+            queryMode: 'local',
+            //autoSelect: true,
             editable: false,
+            allowBlank: false,
+            msgTarget : 'side',
             emptyText: 'How many valves are installed?'
         }],
         html: '<p>This setting prevents that more valves can be added and configured than are physically present.</p>',

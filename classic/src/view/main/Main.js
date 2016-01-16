@@ -88,7 +88,7 @@ Ext.define('Skrubba.view.main.Main', {
         title: 'Settings',
         iconCls: 'fa-cog',
         items: [{
-            xtype: 'settings'
+            xtype: 'settingsform'
         }]
     }, {
         title: 'Statistics',

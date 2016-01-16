@@ -10,6 +10,7 @@ Ext.define('Skrubba.Application', {
 
     stores: [
         //'Plants'
+        'Settings'
     ],
     
     launch: function () {
