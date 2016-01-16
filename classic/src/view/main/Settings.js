@@ -74,7 +74,7 @@ Ext.define('Skrubba.view.main.Settings', {
         items: [
         {
             xtype: 'combo',
-            name: 'valveAmount',
+            name: 'valve_amount',
             id: 'valveAmountField',
             store: new Ext.data.ArrayStore({
                 fields: ['value', 'text'],

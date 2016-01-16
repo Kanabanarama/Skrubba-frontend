@@ -42,22 +42,22 @@ Ext.define('Skrubba.view.main.Logs', {
         },
         {
             text: 'On Time',
-            dataIndex: 'onTime',
+            dataIndex: 'on_time',
             flex: 1
         },
         {
             text: 'On Duration',
-            dataIndex: 'onDuration',
+            dataIndex: 'on_duration',
             flex: 1
         },
         {
             text: 'Interval Type',
-            dataIndex: 'intervalType',
+            dataIndex: 'interval_type',
             flex: 1
         },
         {
             text: 'Last activation',
-            dataIndex: 'lastOnDate',
+            dataIndex: 'last_on_date',
             flex: 1
         }
     ],

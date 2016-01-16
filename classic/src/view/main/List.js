@@ -55,7 +55,7 @@ Ext.define('Skrubba.view.main.List', {
         },
         {
             text: 'On Time',
-            dataIndex: 'onTime',
+            dataIndex: 'on_time',
             flex: 1,
             //xtype: 'timefield'
             //format: 'H:i',
@@ -75,7 +75,7 @@ Ext.define('Skrubba.view.main.List', {
         },
         {
             text: 'On Duration',
-            dataIndex: 'onDuration',
+            dataIndex: 'on_duration',
             flex: 1,
             editor: {
                 xtype:'textfield'
@@ -83,7 +83,7 @@ Ext.define('Skrubba.view.main.List', {
         },
         {
             text: 'Interval Type',
-            dataIndex: 'intervalType',
+            dataIndex: 'interval_type',
             flex: 1,
             editor: {
                 xtype:'combo',
@@ -113,7 +113,7 @@ Ext.define('Skrubba.view.main.List', {
         },
         {
             text: 'Active',
-            dataIndex: 'isActive',
+            dataIndex: 'is_active',
             xtype : 'booleancolumn',
             width: 70,
             trueText : "Active",

@@ -11,7 +11,7 @@ Ext.define('Skrubba.model.Plant', {
         { name: 'id', type: 'int' },
         { name: 'valve', type: 'int' },
         { name: 'name', type: 'string' },
-        { name: 'onTime', type: 'auto',
+        { name: 'on_time', type: 'auto',
             convert: function(value, record) {
                 if(value instanceof Date) {
                     var formattedValue = Ext.Date.format(value, 'H:i');
@@ -22,9 +22,9 @@ Ext.define('Skrubba.model.Plant', {
                 return formattedValue;
             }
         },
-        { name: 'onDuration', type: 'int' },
-        { name: 'intervalType', type: 'string' },
-        { name: 'isActive', type: 'boolean' }
+        { name: 'on_duration', type: 'int' },
+        { name: 'interval_type', type: 'string' },
+        { name: 'is_active', type: 'boolean' }
     ]
 
     /*set: function (name, value) {
