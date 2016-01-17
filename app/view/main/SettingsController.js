@@ -18,8 +18,15 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 jsonData: Ext.JSON.encode({
                     valve_amount: valveAmount
                 }),
-                success: function(xhr) { console.log('success: '+xhr.responseText); },
-                failure: function(xhr) { console.log('failure: '+xhr.statusText); }
+                failure: function(xhr) {
+                    console.log('error', this, arguments);
+                },
+                success:  function(xhr, request) {
+                    responseObj = Ext.util.JSON.decode(xhr.responseText);
+                    if (responseObj.success == 'false') {
+                        Ext.MessageBox.alert('Error', responseObj.message);
+                    }
+                }
             });
         }
     },
@@ -28,11 +35,14 @@ Ext.define('Skrubba.view.settings.SettingsController', {
         Ext.Ajax.request({
             url: Ext.widget('Configuration').getProxyUrl() + '/serveroff',
             method: 'POST',
-            success: function() {
-                console.log(this, arguments);
+            failure: function(xhr) {
+                console.log('error', this, arguments);
             },
-            failure: function() {
-                console.log(this, arguments);
+            success:  function(xhr, request) {
+                responseObj = Ext.util.JSON.decode(xhr.responseText);
+                if (responseObj.success == 'false') {
+                    Ext.MessageBox.alert('Error', responseObj.message);
+                }
             }
         });
     },
@@ -45,11 +55,14 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 Ext.Ajax.request({
                     url: Ext.widget('Configuration').getProxyUrl() + '/serveroff',
                     method: 'POST',
-                    success: function() {
-                        console.log(this, arguments);
+                    failure: function(xhr) {
+                        console.log('error', this, arguments);
                     },
-                    failure: function() {
-                        console.log(this, arguments);
+                    success:  function(xhr, request) {
+                        responseObj = Ext.util.JSON.decode(xhr.responseText);
+                        if (responseObj.success == 'false') {
+                            Ext.MessageBox.alert('Error', responseObj.message);
+                        }
                     }
                 });
             }
@@ -63,11 +76,14 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 Ext.Ajax.request({
                     url: Ext.widget('Configuration').getProxyUrl() + '/reboot',
                     method: 'POST',
-                    success: function() {
-                        console.log(this, arguments);
+                    failure: function(xhr) {
+                        console.log('error', this, arguments);
                     },
-                    failure: function() {
-                        console.log(this, arguments);
+                    success:  function(xhr, request) {
+                        responseObj = Ext.util.JSON.decode(xhr.responseText);
+                        if (responseObj.success == 'false') {
+                            Ext.MessageBox.alert('Error', responseObj.message);
+                        }
                     }
                 });
             }
@@ -81,11 +97,14 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 Ext.Ajax.request({
                     url: Ext.widget('Configuration').getProxyUrl() + '/shutdown',
                     method: 'POST',
-                    success: function() {
-                        console.log(this, arguments);
+                    failure: function(xhr) {
+                        console.log('error', this, arguments);
                     },
-                    failure: function() {
-                        console.log(this, arguments);
+                    success:  function(xhr, request) {
+                        responseObj = Ext.util.JSON.decode(xhr.responseText);
+                        if (responseObj.success == 'false') {
+                            Ext.MessageBox.alert('Error', responseObj.message);
+                        }
                     }
                 });
             }
