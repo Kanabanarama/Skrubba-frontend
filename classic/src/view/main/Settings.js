@@ -25,12 +25,11 @@ Ext.define('Skrubba.view.main.Settings', {
     },
 
     listeners: {
-        // binding a store to the form panel didn't work for whatever reason..
+        // binding a store to the form panel didn't work for some reason..
         beforeRender: function () {
             settingsStore = Ext.data.StoreManager.lookup('Settings');
             settingModel = settingsStore.getAt(0);
             if(settingModel) {
-                settingData = settingsStore.getAt(0).getData();
                 form = this.getForm();
                 form.loadRecord(settingModel);
             }
@@ -117,12 +116,14 @@ Ext.define('Skrubba.view.main.Settings', {
         height: 200,
         collapsible: false,
         items: [
-            {
-                xtype: 'fieldcontainer',
-                layout: 'hbox',
-                items: [
+            //{
+                //xtype: 'fieldcontainer',
+                //layout: 'hbox',
+                //items: [
                     {
                         xtype: 'textfield',
+                        name: 'username',
+                        id: 'settingUsernameField',
                         layout: 'vbox',
                         align: 'stretch',
                         itemId: 'username',
@@ -131,8 +132,8 @@ Ext.define('Skrubba.view.main.Settings', {
                         labelWidth: 120,
                         allowBlank: false,
                         msgTarget : 'side'
-                    }
-                ]},
+                    },
+                //]},
 
 
             {
@@ -143,26 +144,28 @@ Ext.define('Skrubba.view.main.Settings', {
                 items: [
                     {
                         xtype: 'textfield',
+                        name: 'password',
                         inputType: 'password',
                         fieldLabel: 'Password',
                         labelWidth: 120,
                         margin: '0 30 0 0',
                         allowBlank: false,
                         msgTarget : 'side',
-                        id: 'configSetPassword'
+                        id: 'settingPasswordField'
                     },
                     {
                         xtype: 'textfield',
                         inputType: 'password',
                         fieldLabel: 'Confirm Password',
                         labelWidth: 120,
-                        allowBlank: false,
+                        //allowBlank: false,
                         validationEvent: 'blur',
                         msgTarget: 'side',
-                        id: 'configSetPasswordConfirm',
+                        id: 'settingPasswordConfirmField',
                         validator: function() {
-                            var password = Ext.getCmp('configSetPassword').getValue();
-                            var passwordConfirm = Ext.getCmp('configSetPasswordConfirm').getValue();
+                            var password = Ext.getCmp('settingPasswordField').getValue();
+                            var passwordConfirm = Ext.getCmp('settingPasswordConfirmField').getValue();
+
                             var validationResult = (password == passwordConfirm) ? true : 'Passwords do not match!';
                             return validationResult;
                         }

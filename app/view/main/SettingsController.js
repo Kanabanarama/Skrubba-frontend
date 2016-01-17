@@ -13,7 +13,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
         if(isValid == true) {
             valveAmount = valueField.getValue();
             Ext.Ajax.request({
-                url: Ext.widget('Configuration').getProxyUrl() + '/actions/configure',
+                url: Ext.widget('Configuration').getProxyUrl() + '/set/maxvalves',
                 method: 'POST',
                 jsonData: Ext.JSON.encode({
                     valve_amount: valveAmount
@@ -31,20 +31,30 @@ Ext.define('Skrubba.view.settings.SettingsController', {
         }
     },
 
-    onCredentialsSave: function() {
-        Ext.Ajax.request({
-            url: Ext.widget('Configuration').getProxyUrl() + '/serveroff',
-            method: 'POST',
-            failure: function(xhr) {
-                console.log('error', this, arguments);
-            },
-            success:  function(xhr, request) {
-                responseObj = Ext.util.JSON.decode(xhr.responseText);
-                if (responseObj.success == 'false') {
-                    Ext.MessageBox.alert('Error', responseObj.message);
+    onCredentialsSave: function(event, button) {
+        usernameField = Ext.getCmp('settingUsernameField');
+        passwordField = Ext.getCmp('settingPasswordField');
+        passwordConfirmField = Ext.getCmp('settingPasswordConfirmField');
+        isValid = usernameField.validate() && passwordField.validate() && passwordConfirmField.validate();
+        if(isValid == true) {
+            Ext.Ajax.request({
+                url: Ext.widget('Configuration').getProxyUrl() + '/set/credentials',
+                method: 'POST',
+                jsonData: Ext.JSON.encode({
+                    username: usernameField.getValue(),
+                    password: passwordField.getValue()
+                }),
+                failure: function(xhr) {
+                    console.log('error', this, arguments);
+                },
+                success:  function(xhr, request) {
+                    responseObj = Ext.util.JSON.decode(xhr.responseText);
+                    if (responseObj.success == 'false') {
+                        Ext.MessageBox.alert('Error', responseObj.message);
+                    }
                 }
-            }
-        });
+            });
+        }
     },
 
     onServerOffClick: function() {
@@ -53,7 +63,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 console.log('Shutting down...');
                 //Ext.get('ajaxpanel').load({ url: 'http://192.168.0.205:2525/shutdown' });
                 Ext.Ajax.request({
-                    url: Ext.widget('Configuration').getProxyUrl() + '/serveroff',
+                    url: Ext.widget('Configuration').getProxyUrl() + '/action/serveroff',
                     method: 'POST',
                     failure: function(xhr) {
                         console.log('error', this, arguments);
@@ -74,7 +84,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
             if (selection === 'yes') {
                 console.log('Rebooting...');
                 Ext.Ajax.request({
-                    url: Ext.widget('Configuration').getProxyUrl() + '/reboot',
+                    url: Ext.widget('Configuration').getProxyUrl() + '/action/reboot',
                     method: 'POST',
                     failure: function(xhr) {
                         console.log('error', this, arguments);
@@ -95,7 +105,7 @@ Ext.define('Skrubba.view.settings.SettingsController', {
             if (selection === 'yes') {
                 console.log('Shutting down...');
                 Ext.Ajax.request({
-                    url: Ext.widget('Configuration').getProxyUrl() + '/shutdown',
+                    url: Ext.widget('Configuration').getProxyUrl() + '/action/shutdown',
                     method: 'POST',
                     failure: function(xhr) {
                         console.log('error', this, arguments);
