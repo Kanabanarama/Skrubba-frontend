@@ -37,7 +37,20 @@ Ext.define('Skrubba.view.main.MainController', {
                 console.log('deleted', record)
                 var store = grid.getStore();
                 store.remove(record);
-                store.sync();
+                store.sync({
+                    failure: function(batch, options) {
+                        store.rejectChanges();
+                        Ext.each(batch.exceptions, function(operation) {
+                            if (operation.hasException()) {
+                                console.log(operation);
+                                Ext.MessageBox.alert('Error', operation.error);
+                            }
+                        });
+                    },
+                    success: function() {
+                        console.log('success', arguments);
+                    }
+                });
             }
         }, this);
     },
@@ -49,6 +62,19 @@ Ext.define('Skrubba.view.main.MainController', {
             name: 'New plant'
         });
         store.add(newRecord);
-        store.sync();
+        store.sync({
+            failure: function(batch, options) {
+                store.rejectChanges();
+                Ext.each(batch.exceptions, function(operation) {
+                    if (operation.hasException()) {
+                        console.log(operation);
+                        Ext.MessageBox.alert('Error', operation.error);
+                    }
+                });
+            },
+            success: function() {
+                console.log('success', arguments);
+            }
+        });
     }
 });
