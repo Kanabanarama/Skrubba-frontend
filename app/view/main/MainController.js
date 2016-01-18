@@ -76,5 +76,24 @@ Ext.define('Skrubba.view.main.MainController', {
                 console.log('success', arguments);
             }
         });
+    },
+
+    onLogoutClick: function(newTab, oldTab) {
+        //console.log('beforeactivate', this, arguments);
+        //this.setActiveItem(0);
+        //this.getView().suspendEvent('beforeactivate');
+        //this.getView().suspendEvents();
+        //newTab.suspendEvents();
+        //oldTab.suspendEvents();
+        //this.disable();
+        //this.stopEvent();
+
+        localStorage.removeItem('SkrubbaLogin');
+        this.getView().destroy();
+        Ext.create({
+            xtype: 'loginwindow'
+        });
+
+        //return false;
     }
 });

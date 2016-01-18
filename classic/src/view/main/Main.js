@@ -18,6 +18,8 @@ Ext.define('Skrubba.view.main.Main', {
         'Skrubba.view.main.List'
     ],
 
+    plugins: 'viewport',
+
     controller: 'main',
     viewModel: 'main',
 
@@ -104,9 +106,16 @@ Ext.define('Skrubba.view.main.Main', {
         }]
     }, {
         title: 'Logout',
-        iconCls: 'fa-times',
-        bind: {
-            html: '{loremIpsum}'
+        name: 'logout',
+        iconCls: 'fa-times'
+    }],
+
+    // calling this in the logout tab button directly would fire tab activation events after the view was destroyed
+    listeners: {
+        'tabchange': function(panel, newTab, oldTab) {
+            if(newTab.name == 'logout') {
+                this.getController().onLogoutClick();
+            }
         }
-    }]
+    }
 });

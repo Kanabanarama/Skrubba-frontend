@@ -9,12 +9,30 @@ Ext.define('Skrubba.Application', {
     name: 'Skrubba',
 
     stores: [
-        //'Plants'
         'Settings'
+    ],
+
+    views: [
+        'Skrubba.view.login.Login',
+        'Skrubba.view.main.Main'
     ],
     
     launch: function () {
-        // TODO - Launch the application
+        var loggedIn = localStorage.getItem("SkrubbaLogin");
+        if(loggedIn) {
+            Ext.widget('app-main');
+        } else {
+            settingsStore = Ext.data.StoreManager.lookup('Settings');
+            settingsStore.on('load', function(store, records, successful, operation, eOpts) {
+                modelData = store.getAt(0).getData();
+                if(modelData['username']) {
+                    Ext.widget(loggedIn ? 'app-main' : 'loginwindow');
+                } else {
+                    Ext.widget('app-main');
+                }
+            });
+            settingsStore.load();
+        }
     },
 
     onAppUpdate: function () {
