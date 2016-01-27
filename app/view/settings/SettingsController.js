@@ -26,34 +26,25 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 }
             });
 
-            /*form.submit({
-                url: Ext.widget('Configuration').getProxyUrl() + '/set/credentials',
-                jsonSubmit: true,
-                success: function(form, action) {
-                    xhr = action.response;
-                    responseObj = Ext.util.JSON.decode(xhr.responseText);
-                    if (responseObj.success == 'false') {
-                        Ext.MessageBox.alert('Error', responseObj.message);
-                    } else {
-                        //button.up('app-main').getTabBar().items.items[4].enable()
-                        //mainPanel = button.up('app-main');
-                        settingsStore = Ext.data.StoreManager.lookup('Settings');
-                        settingsStore.sync()
-
-                        mainPanel = button.up('app-main');
-                        console.log('mainPanel', mainPanel);
-                        mainPanel.fireEvent('aftersettings', mainPanel);
-                    }
-                },
-                failure: function(form, action) {
-                    console.log('failure', this, arguments);
-                    //Ext.Msg.alert('Failed', action.result.msg);
-                }
-            });*/
-
             mainPanel = button.up('app-main');
             mainPanel.fireEvent('aftersettings', mainPanel);
         }
+    },
+
+    onFormDelete: function(button, event) {
+        var form = button.up('form');
+        var formValues = form.getValues();
+        var settingsRecord = form.getRecord();
+        settingsRecord.beginEdit();
+        Ext.Object.each(formValues, function(key, value) {
+            settingsRecord.set(key, '-DELETE-');
+        });
+        settingsRecord.endEdit();
+        settingsRecord.erase();
+        form.reset();
+
+        mainPanel = button.up('app-main');
+        mainPanel.fireEvent('aftersettings', mainPanel);
     },
 
     onServerOffClick: function() {

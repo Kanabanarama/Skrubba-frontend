@@ -75,9 +75,11 @@ Ext.define('Skrubba.view.main.Settings', {
         }],
         html: '<p>This setting prevents that more valves can be added and configured than are physically present.</p>',
         buttons: [{
+            text: 'Delete',
+            handler: 'onFormDelete'
+        },{
             text: 'Save',
             formBind: true,
-            //handler: 'onValveAmountSave'
             handler: 'onFormSave'
         }]
     },
@@ -128,7 +130,6 @@ Ext.define('Skrubba.view.main.Settings', {
                     validator: function() {
                         var password = Ext.getCmp('settingPasswordField').getValue();
                         var passwordConfirm = Ext.getCmp('settingPasswordConfirmField').getValue();
-
                         var validationResult = (password == passwordConfirm) ? true : 'Passwords do not match!';
                         return validationResult;
                     }
@@ -137,6 +138,9 @@ Ext.define('Skrubba.view.main.Settings', {
         }],
         html: '<p>It is strongly recommended to set a password for the configuration interface or anyone in your network can change the settings!</p>',
         buttons: [{
+            text: 'Delete',
+            handler: 'onFormDelete'
+        },{
             text: 'Save',
             formBind: true,
             handler: 'onFormSave'
