@@ -107,15 +107,22 @@ Ext.define('Skrubba.view.main.Main', {
     }, {
         title: 'Logout',
         name: 'logout',
+        itemId: 'logoutTabHeader',
+        id: 'logoutTabHeader',
         iconCls: 'fa-times'
+        //disabled: true
     }],
 
-    // calling this in the logout tab button directly would fire tab activation events after the view was destroyed
     listeners: {
+        // calling this in the logout tab button directly would fire tab activation events after the view was destroyed
         'tabchange': function(panel, newTab, oldTab) {
             if(newTab.name == 'logout') {
                 this.getController().onLogoutClick();
             }
+        },
+        'aftersettings': function(panel, store, record, eOpts) {
+            console.log('aftersettings event');
+            this.getController().setLogoutButtonState();
         }
     }
 });

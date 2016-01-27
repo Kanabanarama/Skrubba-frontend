@@ -16,22 +16,35 @@ Ext.define('Skrubba.Application', {
         'Skrubba.view.login.Login',
         'Skrubba.view.main.Main'
     ],
-    
+
     launch: function () {
+        this.init();
         var loggedIn = localStorage.getItem("SkrubbaLogin");
         if(loggedIn) {
             Ext.widget('app-main');
         } else {
             settingsStore = Ext.data.StoreManager.lookup('Settings');
             settingsStore.on('load', function(store, records, successful, operation, eOpts) {
-                modelData = store.getAt(0).getData();
-                if(modelData['username']) {
-                    Ext.widget(loggedIn ? 'app-main' : 'loginwindow');
+                var panel = null;
+                if(Skrubba.getApplication().isLoginRequired()) {
+                    panel = Ext.widget(loggedIn ? 'app-main' : 'loginwindow');
                 } else {
-                    Ext.widget('app-main');
+                    panel = Ext.widget('app-main');
                 }
+                panel.fireEvent('aftersettings', panel);
             });
             settingsStore.load();
+        }
+    },
+
+    isLoginRequired: function() {
+        settingsStore = Ext.data.StoreManager.lookup('Settings');
+        modelData = settingsStore.getAt(0).getData();
+        console.log('isLoginRequired, checking Model:', modelData);
+        if(modelData['username']) {
+            return true;
+        } else {
+            return false;
         }
     },
 

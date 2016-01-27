@@ -78,22 +78,20 @@ Ext.define('Skrubba.view.main.MainController', {
         });
     },
 
-    onLogoutClick: function(newTab, oldTab) {
-        //console.log('beforeactivate', this, arguments);
-        //this.setActiveItem(0);
-        //this.getView().suspendEvent('beforeactivate');
-        //this.getView().suspendEvents();
-        //newTab.suspendEvents();
-        //oldTab.suspendEvents();
-        //this.disable();
-        //this.stopEvent();
+    setLogoutButtonState: function() {
+        logoutButton = this.getView().getComponent('logoutTabHeader');
+        console.log('setLogoutButtonState', logoutButton);
+        if(logoutButton.getItemId() === 'logoutTabHeader') {
+            //console.log(Skrubba.getApplication().isLoginRequired());
+            Skrubba.getApplication().isLoginRequired() ? logoutButton.enable() : logoutButton.disable();
+        }
+    },
 
+    onLogoutClick: function(newTab, oldTab) {
         localStorage.removeItem('SkrubbaLogin');
         this.getView().destroy();
         Ext.create({
             xtype: 'loginwindow'
         });
-
-        //return false;
     }
 });

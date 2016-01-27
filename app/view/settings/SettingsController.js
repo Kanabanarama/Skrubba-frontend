@@ -7,53 +7,52 @@ Ext.define('Skrubba.view.settings.SettingsController', {
 
     alias: 'controller.settings',
 
-    onValveAmountSave: function(event, button) {
-        valueField = Ext.getCmp('valveAmountField');
-        isValid = valueField.validate();
-        if(isValid == true) {
-            valveAmount = valueField.getValue();
-            Ext.Ajax.request({
-                url: Ext.widget('Configuration').getProxyUrl() + '/set/maxvalves',
-                method: 'POST',
-                jsonData: Ext.JSON.encode({
-                    valve_amount: valveAmount
-                }),
-                failure: function(xhr) {
-                    console.log('error', this, arguments);
-                },
-                success:  function(xhr, request) {
-                    responseObj = Ext.util.JSON.decode(xhr.responseText);
-                    if (responseObj.success == 'false') {
-                        Ext.MessageBox.alert('Error', responseObj.message);
+    onFormSave: function(button, event) {
+        var form = button.up('form');
+        if(form.isValid()) {
+            console.log('settingsSave:', form.getRecord(), form.getValues());
+            settingsRecord = form.getRecord();
+            settingsRecord.set(form.getValues());
+            settingsRecord.save({
+                callback: function(record, operation, success) {
+                    if (success === false) {
+                        if (operation.error !== undefined) {
+                            Ext.MessageBox.alert('Error', operation.error);
+                        }
+                        //record.reject();
+                        //settingsRecord.reject();
+                        form.reset();
                     }
                 }
             });
-        }
-    },
 
-    onCredentialsSave: function(event, button) {
-        usernameField = Ext.getCmp('settingUsernameField');
-        passwordField = Ext.getCmp('settingPasswordField');
-        passwordConfirmField = Ext.getCmp('settingPasswordConfirmField');
-        isValid = usernameField.validate() && passwordField.validate() && passwordConfirmField.validate();
-        if(isValid == true) {
-            Ext.Ajax.request({
+            /*form.submit({
                 url: Ext.widget('Configuration').getProxyUrl() + '/set/credentials',
-                method: 'POST',
-                jsonData: Ext.JSON.encode({
-                    username: usernameField.getValue(),
-                    password: passwordField.getValue()
-                }),
-                failure: function(xhr) {
-                    console.log('error', this, arguments);
-                },
-                success:  function(xhr, request) {
+                jsonSubmit: true,
+                success: function(form, action) {
+                    xhr = action.response;
                     responseObj = Ext.util.JSON.decode(xhr.responseText);
                     if (responseObj.success == 'false') {
                         Ext.MessageBox.alert('Error', responseObj.message);
+                    } else {
+                        //button.up('app-main').getTabBar().items.items[4].enable()
+                        //mainPanel = button.up('app-main');
+                        settingsStore = Ext.data.StoreManager.lookup('Settings');
+                        settingsStore.sync()
+
+                        mainPanel = button.up('app-main');
+                        console.log('mainPanel', mainPanel);
+                        mainPanel.fireEvent('aftersettings', mainPanel);
                     }
+                },
+                failure: function(form, action) {
+                    console.log('failure', this, arguments);
+                    //Ext.Msg.alert('Failed', action.result.msg);
                 }
-            });
+            });*/
+
+            mainPanel = button.up('app-main');
+            mainPanel.fireEvent('aftersettings', mainPanel);
         }
     },
 
@@ -61,7 +60,6 @@ Ext.define('Skrubba.view.settings.SettingsController', {
         Ext.Msg.confirm('Shutdown flask server', 'Are you sure you want to shutdown the flask server? It can only started via reboot or over ssh.', function (selection) {
             if (selection === 'yes') {
                 console.log('Shutting down...');
-                //Ext.get('ajaxpanel').load({ url: 'http://192.168.0.205:2525/shutdown' });
                 Ext.Ajax.request({
                     url: Ext.widget('Configuration').getProxyUrl() + '/action/serveroff',
                     method: 'POST',
