@@ -54,6 +54,9 @@ Ext.define('Skrubba.view.settings.SettingsController', {
                 Ext.Ajax.request({
                     url: Ext.widget('Configuration').getProxyUrl() + '/action/serveroff',
                     method: 'POST',
+                    jsonData: Ext.JSON.encode({
+                        token: localStorage.getItem('AuthToken')
+                    }),
                     failure: function(xhr) {
                         console.log('error', this, arguments);
                     },

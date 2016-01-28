@@ -89,6 +89,7 @@ Ext.define('Skrubba.view.main.MainController', {
 
     onLogoutClick: function(newTab, oldTab) {
         localStorage.removeItem('SkrubbaLogin');
+        localStorage.removeItem('AuthToken');
         this.getView().destroy();
         Ext.create({
             xtype: 'loginwindow'

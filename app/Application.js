@@ -21,6 +21,7 @@ Ext.define('Skrubba.Application', {
         this.init();
         var loggedIn = localStorage.getItem("SkrubbaLogin");
         if(loggedIn) {
+            this.setAuthRequestHeader();
             Ext.widget('app-main');
         } else {
             settingsStore = Ext.data.StoreManager.lookup('Settings');
@@ -46,6 +47,15 @@ Ext.define('Skrubba.Application', {
         } else {
             return false;
         }
+    },
+
+    setAuthRequestHeader: function() {
+        var authToken = localStorage.getItem('AuthToken');
+        Ext.Ajax.setDefaultHeaders({
+            'Accept': 'application/json',
+            'Token': authToken,
+            'Authentication': authToken
+        });
     },
 
     onAppUpdate: function () {

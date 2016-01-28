@@ -21,7 +21,9 @@ Ext.define('Skrubba.view.login.LoginController', {
                 responseObj = Ext.util.JSON.decode(xhr.responseText);
                 if (responseObj.success == 'true') {
                     // successfull login
-                    localStorage.setItem("SkrubbaLogin", true);
+                    localStorage.setItem('SkrubbaLogin', true);
+                    localStorage.setItem('AuthToken', responseObj.token);
+                    Skrubba.getApplication().setAuthRequestHeader(responseObj.token);
                     loginView.destroy();
                     Ext.widget('app-main');
                 } else {
@@ -31,5 +33,3 @@ Ext.define('Skrubba.view.login.LoginController', {
         });
     }
 });
-
-//  loginForm.getForm().reset();
