@@ -3,7 +3,7 @@
      * The application's namespace.
      */
     "name": "Skrubba",
-    
+
     /**
      * The version of the application.
      */
@@ -41,16 +41,17 @@
      * The Sencha Framework for this application: "ext" or "touch".
      */
     "framework": "ext",
-    
+
     /**
      * The toolkit to use. Select either "classic" or "modern".
      */
-    
-    
+
+    "toolkit": "classic",
+
     /**
      * The name of the theme for this application.
      */
-    
+
     /**
      * The list of required packages (with optional versions; default is "latest").
      *
@@ -97,7 +98,7 @@
          *      "save": "sass/save.scss"
          *
          */
-         
+
         /**
          * Comma-separated list of files or folders containing extra Sass. These
          * files are automatically included in the Sass compilation. By default this
@@ -283,21 +284,21 @@
      * are supported.
      *
      */
-     "loader": {
-         // This property controls how the loader manages caching for requests:
-         //
-         //   - true: allows requests to receive cached responses
-         //   - false: disable cached responses by adding a random "cache buster"
-         //   - other: a string (such as the build.timestamp shown here) to allow
-         //     requests to be cached for this build.
-         //
-         "cache": false,
+    "loader": {
+        // This property controls how the loader manages caching for requests:
+        //
+        //   - true: allows requests to receive cached responses
+        //   - false: disable cached responses by adding a random "cache buster"
+        //   - other: a string (such as the build.timestamp shown here) to allow
+        //     requests to be cached for this build.
+        //
+        "cache": false,
 
-         // When "cache" is not true, this value is the request parameter used
-         // to control caching.
-         //
-         "cacheParam": "_dc"
-     },
+        // When "cache" is not true, this value is the request parameter used
+        // to control caching.
+        //
+        "cacheParam": "_dc"
+    },
 
     /**
      * Settings specific to production builds.
@@ -319,13 +320,13 @@
             "type": "yui"
         }
     },
-    
+
     /**
      * Settings specific to testing builds.
      */
     "testing": {
     },
-    
+
     /**
      * Settings specific to development builds.
      */
@@ -368,9 +369,9 @@
      */
     "bootstrap": {
         "base": "${app.dir}",
-        
+
         "manifest": "${build.id}.json",
-        
+
         "microloader": "bootstrap.js",
         "css": "bootstrap.css"
     },
@@ -415,7 +416,7 @@
      *      }
      *
      */
-    
+
     "output": {
         "base": "${workspace.build.dir}/${build.environment}/${app.name}",
         "page": "index.html",
@@ -429,11 +430,11 @@
             "shared": "resources"
         }
     },
-    
-    
+
+
     /**
-    * Controls for localStorage caching
-    *   "cache": {
+     * Controls for localStorage caching
+     *   "cache": {
     *       // This property controls whether localStorage caching of this manifest file is on or off.
     *       // if disabled no deltas will be generated during a build and full updates will be disabled
     *       "enable": false,
@@ -445,13 +446,13 @@
     *
     *       "deltas": "deltas"
     *   }
-    */
-    
+     */
+
     "cache": {
         "enable": false,
         "deltas": "${build.id}/deltas"
     },
-    
+
 
     /**
      * Used to automatically generate cache.manifest (HTML 5 application cache manifest)
@@ -506,9 +507,9 @@
      * generated inside this directory must be kept intact for proper generation of
      * deltas between updates.
      */
-    
+
     "archivePath": "archive/${build.id}",
-    
+
 
 
     /**
@@ -553,29 +554,19 @@
      *     }
      *
      */
-    
+
     "builds": {
         "classic": {
             "toolkit": "classic",
-            
+
             "theme": "theme-triton",
-            
+
             "sass": {
                 // "save": "classic/sass/save.scss"
             }
-        },
-
-        "modern": {
-            "toolkit": "modern",
-            
-            "theme": "theme-triton",
-            
-            "sass": {
-                // "save": "modern/sass/save.scss"
-            }
         }
     },
-    
+
 
     /**
      * Uniquely generated id for this application, used as prefix for localStorage keys.
