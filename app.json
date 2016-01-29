@@ -304,6 +304,8 @@
      * Settings specific to production builds.
      */
     "production": {
+        "backendUrl" : "",
+        "backendPort": 80,
         "output": {
             "appCache": {
                 "enable": true,
@@ -325,12 +327,16 @@
      * Settings specific to testing builds.
      */
     "testing": {
+        "backendUrl" : "http://localhost:",
+        "backendPort": 2525
     },
 
     /**
      * Settings specific to development builds.
      */
     "development": {
+        "backendUrl" : "http://localhost:",
+        "backendPort": 2525,
         "tags": [
             // You can add this tag to enable Fashion when using app watch or
             // you can add "?platformTags=fashion:1" to the URL to enable Fashion
