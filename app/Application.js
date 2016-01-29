@@ -40,13 +40,17 @@ Ext.define('Skrubba.Application', {
 
     isLoginRequired: function() {
         settingsStore = Ext.data.StoreManager.lookup('Settings');
-        modelData = settingsStore.getAt(0).getData();
-        console.log('isLoginRequired, checking Model:', modelData);
-        if(modelData['username']) {
-            return true;
-        } else {
-            return false;
+        model = settingsStore.getAt(0);
+        if(model) {
+            modelData = model.getData();
+            console.log('isLoginRequired, checking Model:', modelData);
+            if(modelData['username']) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        return true;
     },
 
     setAuthRequestHeader: function() {
