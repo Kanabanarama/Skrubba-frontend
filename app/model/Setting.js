@@ -4,7 +4,7 @@ Ext.define('Skrubba.model.Setting', {
     fields: [
         { name: 'valve_amount', type: 'auto' },
         { name: 'username', type: 'auto' }
-    ],
+    ]
 
     /*proxy: {
         writer: {

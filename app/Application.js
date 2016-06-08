@@ -36,6 +36,23 @@ Ext.define('Skrubba.Application', {
             });
             settingsStore.load();
         }
+        this.setupKeepalive();
+    },
+
+    setupKeepalive: function() {
+        var keepaliveTask = {
+            run: function() {
+                Ext.Ajax.request({
+                    url: Ext.widget('Configuration').getProxyUrl() + '/keepalive',
+                    method: 'GET',
+                    failure: function(xhr) {
+                        console.log('error', this, arguments);
+                    }
+                });
+            },
+            interval: 10000
+        };
+        Ext.TaskManager.start(keepaliveTask);
     },
 
     isLoginRequired: function() {
