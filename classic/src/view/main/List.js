@@ -62,9 +62,9 @@ Ext.define('Skrubba.view.main.List', {
             //submitFormat: 'Y-m-d H:i:s',
             editor: {
                 xtype: "timefield",
-                format: "H:i",
-                altFormats: 'H:i',
-                submitFormat: 'H:i'
+                format: "H:i:s",
+                altFormats: 'H:i:s',
+                submitFormat: 'H:i:s'
             }
             /*renderer : function(value, metaData, record, rowIndex, colIndex, store, view) {
                 timeFieldDate = new Date(value);

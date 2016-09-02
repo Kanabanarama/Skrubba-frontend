@@ -14,10 +14,10 @@ Ext.define('Skrubba.model.Plant', {
         { name: 'on_time', type: 'auto',
             convert: function(value, record) {
                 if(value instanceof Date) {
-                    var formattedValue = Ext.Date.format(value, 'H:i');
+                    var formattedValue = Ext.Date.format(value, 'H:i:s');
                 } else {
-                    var valueDate = Ext.Date.parse(value, 'H:i');
-                    var formattedValue = Ext.Date.format(valueDate, 'H:i');
+                    var valueDate = Ext.Date.parse(value, 'H:i:s');
+                    var formattedValue = Ext.Date.format(valueDate, 'H:i:s');
                 }
                 return formattedValue;
             }
